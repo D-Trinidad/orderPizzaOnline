@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>David's Pizzeria</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-image: url("https://i.pinimg.com/564x/bd/12/66/bd126622b9e364964b2f57c2d6791b3c--i-love-pizza-dream-come-true.jpg");
+        }
+        #menuBG {
+            margin: auto;
+            margin-top: 4px;
+            width: 650px;
+            border-radius: 25px;
+            border: 3px solid #080054;
+            padding: 1px 0px;
+            background-color: firebrick;
+            color: gold;
+            box-shadow: 0 0 0 3px rgba(255,255,255, .8);
+            opacity: 1;
+            text-align: center;
+        }
+        #welcome, #modalWindow, #receipt {
+            background-color: firebrick;
+            border-radius: 25px;
+            box-shadow: 0 0 0 3px rgba(255,255,255, .8);
+            border: 3px solid #080054;
+            color: goldenrod;
+        }
+        #startOrder {
+            font-weight: bold;
+            color: firebrick;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="menuBG">David's Pizzeria!</h1> 
+        <div class="row justify-content-center">
+            <!--This is the welcome div that lets you start your order-->
+            <div id="welcome" class="card text-center col-md-6 mt-2">
+                <div class="card-header">
+                    Your one stop pizza shop
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Get the pizza you want fast and easy!</h4>
+                    <p class="card-text">Tired of going through several menus for the pizza you want? Sometimes you appreciate a simple cheese pizza or just have 1 or 2 toppings. We got it covered. And if you're the type of person who wants to pile it on and create that perfect custom order, we got you covered too (of course getting extra charges extra but it's worth it)! Just click the button below and get started!</p>
+                    <button type="button" class="btn btn-warning" id="btnModal">ORDER NOW</button>
+                </div>
+                <div class="card-footer text-muted">
+                    WARNING: Pizza may cause severe symptoms of food coma and short bursts of happiness.
+                </div>
+            </div>
+            <!--This is the Receipt-->
+            <div id="receipt" class="card text-center col-md-6 mt-2 d-none">
+                <div class="card-header h4 mb-1">
+                    <p style="float:left">You Ordered:</p>
+                    <p style="float:right">Subtotal</p>
+                </div>
+                <div class="card-body">
+                    <p id="receiptContent" style="float:left"></p>
+                    <p id="receiptPrice" style="float:right"></p>
+                </div>
+                <div class="card-footer h4 mb-1">
+                    <p id="totalPrice" style="float:left">Total Price:</p>
+                    <p id="dollarTotal" style="float:right"></p>
+                </div>
+            </div>
+        </div>   
+     </div>
+
+    <!-- Modal -->
+    <div class="modal fade bd-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" id="modalWindow">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Basic Pizza</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="basicMenu">Here you get to choose between the size, type of crust, cheese or no cheese, sauce, and 1 meat and/or 1 veggie topping all for one standard price per size. Making it quick, easy, and simple to get the kind of pizza you want. If you want to make it extra special, click on ahead, otherwise choose your options and order now. </p>
+                    <p class="d-none" id="specialMenu">This is where you add all the special toppings you want. It's a dollar extra per meat/veggie you add and $3 for extra choose and cheese stuffed crust.</p>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h5>Veggies:</h5>
+                                <!--Wrapping the inputs in div tags so you can also effect the text beside the radio buttons-->
+                                <div><input class="veggies" type="radio" name="Veggie" value="Tomatoes"> Tomatoes</div>
+                                <div><input class="veggies" type="radio" name="Veggie" value="Onions"> Onions</div> 
+                                <div><input class="veggies" type="radio" name="Veggie" value="Olives"> Olives</div>
+                                <div><input class="veggies" type="radio" name="Veggie" value="Green Peppers"> Green Peppers</div>
+                                <div><input class="veggies" type="radio" name="Veggie" value="Mushrooms"> Mushrooms</div>
+                                <div><input class="veggies" type="radio" name="Veggie" value="Pineapple"> Pineapple</div>
+                                <div><input class="veggies" type="radio" name="Veggie" value="Spinach"> Spinach</div>
+                                <div><input class="veggies" type="radio" name="Veggie" value="Jalapeno"> Jalapeno</div>
+                            </div>
+                            <div class="col-sm-4">
+                                <h5>Meats:</h5>
+                                <div><input class="meats" type="radio" name="Meat" value="Pepperoni"> Pepperoni</div>
+                                <div><input class="meats" type="radio" name="Meat" value="Sausage"> Sausage </div>
+                                <div><input class="meats" type="radio" name="Meat" value="Canadian Bacon"> Canadian Bacon</div>
+                                <div><input class="meats" type="radio" name="Meat" value="Ground Beef"> Ground Beef</div>
+                                <div><input class="meats" type="radio" name="Meat" value="Anchovy"> Anchovy</div>
+                                <div><input class="meats" type="radio" name="Meat" value="Chicken"> Chicken</div>
+                            </div>
+                            <div class="col-sm-4" id="size">
+                                <h5>Size:</h5>
+                                <input class="size" type="radio" name="Size" value="Personal Pizza"> Personal Pizza<br>
+                                <input class="size" type="radio" name="Size" value="Medium Pizza"> Medium Pizza<br>
+                                <input class="size" type="radio" name="Size" value="Large Pizza" checked> Large Pizza<br>
+                                <input class="size" type="radio" name="Size" value="Extra Large Pizza"> Extra Large Pizza<br>
+                            </div>
+                            <div class="col-sm-4 d-none" id="extraStuff">
+                                <h5>Extras:</h5>
+                                <input class="extras" type="checkbox" name="Cheese" value="Extra cheese"> Extra cheese<br>
+                                <input class="extras" type="checkbox" name="Crust" value="Cheese Stuffed Crust"> Cheese Stuffed Crust<br>
+                            </div>
+                        </div>
+                        <div class="row mt-3 mb-1" id="pizzaBase">
+                            <div class="col-sm-4">
+                                <h5>Cheese:</h5>
+                                <input class="cheese" type="radio" name="Cheese" value="Regular cheese" checked> Regular cheese<br>
+                                <input class="cheese" type="radio" name="Cheese" value="No cheese"> No cheese<br>                                
+                            </div>
+                            <div class="col-sm-4">
+                                <h5>Sauce:</h5>
+                                <input class="sauce" type="radio" name="Sauce" value="Marinara sauce" checked> Marinara sauce<br>
+                                <input class="sauce" type="radio" name="Sauce" value="White sauce"> White sauce<br>
+                                <input class="sauce" type="radio" name="Sauce" value="Barbeque sauce"> Barbeque sauce<br>
+                                <input class="sauce" type="radio" name="Sauce" value="No sauce"> No sauce<br>
+                            </div>
+                            <div class="col-sm-4">
+                                <h5>Crust:</h5>
+                                <input class="crust" type="radio" name="Crust" value="Plain Crust"> Plain Crust<br>
+                                <input class="crust" type="radio" name="Crust" value="Garlic Butter Crust"> Garlic Butter Crust<br>
+                                <input class="crust" type="radio" name="Crust" value="Spicy Crust"> Spicy Crust<br>
+                                <input class="crust" type="radio" name="Crust" value="House Special Crust" checked> House Special Crust<br>
+                            </div>
+                        </div><br>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="card-footer text-muted">
+                        NOTE: Please choose at least 1 complementary meat/veggie in the Basic Menu before adding more or else you will be charged for that topping.
+                    </div>
+                    <button type="button" class="btn btn-secondary" id="cancelOrder" data-dismiss="modal">Cancel Order</button>
+                    <button type="button" class="btn btn-primary" id="placeOrder" data-dismiss="modal">Place Order</button>
+                    <button type="button" class="btn btn-success" id="special">Make it Special</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+<!--THE FOLLOWING IS MY CUSTOM JAVASCRIPT/jQUERY-->
+<script>
+    $(document).ready(function () { //only the essential things need to be inside the document.ready as in the things that happen on page load. You do not need to put in click handlers in here because they don't need to happen on load.'
+        var modalClone = $("#myModal").clone(true); /*this is to copy the original state of the modal to return to. This is at the bottom because the (true) parameter copies the click events that are tied with the cloned data, so the click handlers need to be run first before it can be cloned, hence this being last. */
+    });
+    //NOTE: Javascript reads variables and processes them first before any code is executed so its important to know where they are declared. Any proceeding 'var' will overwrite the previous value of the variable before any other code is run. 
+    var runningTotal = 0;
+    var sizePrice = 0;
+    var pizzaSize = "";
+    var specialMode = false;
+    function addSize() { //This function gets the pizza size you picked and puts it on the receipt.
+        if ($('.size').is(':checked')) {
+            pizzaSize = $('.size:checked').val();
+            $('#receiptContent').append(pizzaSize + "<br/>");
+            getSizePrice();
+            $('#receiptPrice').append("$" + sizePrice + "<br/>");
+            runningTotal = runningTotal + sizePrice
+        }
+        console.log("addSize is being called");
+    }
+    function getSizePrice() { //this is the switch case to determine the base pizza price depending on size
+        switch (pizzaSize) {
+            case "Personal Pizza":
+                sizePrice = 6;
+                break;
+            case "Medium Pizza":
+                sizePrice = 10;
+                break;
+            case "Large Pizza":
+                sizePrice = 14;
+                break;
+            case "Extra Large Pizza":
+                sizePrice = 16;
+                break;
+        }
+        console.log("getSizePrice is being called");
+    }
+    function addBaseToppings() { //this gets the complementary pizza options for the base pizza and attaches it to the receipt
+        var baseArray = [];
+        $(':radio:checked:not(".size")').each(function (i) {
+            baseArray[i] = $(this).val();
+            $('#receiptContent').append(baseArray[i] + "<br/>");
+            $('#receiptPrice').append("$" + 0 + "<br/>");
+        })
+        console.log("addBaseToppings is being called");
+    }
+    function addExtras() { //this gets the additional toppings and receipts it
+        var toppingsArray = [];
+        $(':checkbox:checked:not(".extras")').each(function (i) {
+            toppingsArray[i] = $(this).val();
+            $('#receiptContent').append(toppingsArray[i] + "<br/>");
+            $('#receiptPrice').append("$" + 1 + "<br/>");
+            runningTotal = runningTotal + 1
+        })
+        var extrasArray = []; //this gets the 2 more expensive extra options  
+        $('.extras:checked').each(function (i) {
+            extrasArray[i] = $(this).val();
+            $('#receiptContent').append(extrasArray[i] + "<br/>");
+            $('#receiptPrice').append("$" + 3 + "<br/>");
+            runningTotal = runningTotal + 3
+        })
+        console.log("addExtras is being called");
+    }
+    function takeFirstToppings() { //this gets the first meat/veggie special from the base menu and removes that option for the special menu
+        $('.veggies:checked, .meats:checked').closest('div').remove();
+    }
+    function extraToppings() { //this changes the meat/veggie menu so you can now pick more than one
+        $('.veggies, .meats').each(function () {
+            $(this).attr('type', 'checkbox')
+        });
+    }
+    $('#btnModal').click(function () { //click handler for the modal
+        $('#myModal').modal('show')
+    })
+    $('#special').click(function () { //button that brings up the special toppings menu
+        $('#exampleModalLabel').html("Special Pizza")
+       specialMode = true
+        addSize();
+        addBaseToppings();
+        takeFirstToppings();
+        extraToppings();
+        $('#extraStuff,#specialMenu').removeClass('d-none');
+        $('#pizzaBase,#size,#basicMenu').addClass('d-none');
+        $(this).hide();
+    })
+    $('#placeOrder').click(function () { //Place order button on the modal
+        if (specialMode) { //by default if(booloean) == true
+            addExtras();
+            console.log("do nothing");
+        }
+        else {
+            addSize();
+            addBaseToppings();
+        } 
+        $('#dollarTotal').append("$" + runningTotal + ".00");
+        $('#welcome').addClass('d-none'); //d-none is a Bootstrap class that when added, makes an element invisible.
+        $('#receipt').removeClass('d-none');
+    })
+    $('#cancelOrder').click(function () {
+        $('#myModal').on('hidden.bs.modal', function (e) {
+            $('#myModal').replaceWith(modalClone.clone(true)); //the replaceWith is using a clone of the original clone so the original clone will not be overwritten, allowing the user to cancel and re-order indefinitely. 
+        })
+    })
+</script>
+</body>
+</html>

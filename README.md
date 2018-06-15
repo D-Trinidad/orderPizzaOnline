@@ -1,2 +1,2 @@
 # orderPizzaOnline
-This Tech Acadmey project is a menu and order page for a fictional pizza place
+Pizza ordering menu that creates a pizza a tallies a total price depending on user choice
